@@ -15,7 +15,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             <footer className="bg-black py-8 border-t border-white/10">
                 <div className="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm space-y-2">
                     <p>&copy; {new Date().getFullYear()} Portfólio Valorant. Não afiliado à Riot Games.</p>
-                    <p className="uppercase tracking-[0.4em] text-xs text-valorant-red">Desenvolvido por Dev Kauan Felipe</p>
+                    <p className="uppercase tracking-[0.2em] text-sm font-heading font-bold text-valorant-red drop-shadow-sm">Desenvolvido por Developer Kauan Felipe</p>
                 </div>
             </footer>
         </div>

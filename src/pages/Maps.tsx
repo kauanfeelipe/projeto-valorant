@@ -17,6 +17,11 @@ const Maps = () => {
         return <ErrorState message="Nenhum mapa disponível." />;
     }
 
+    // Filter duplicate maps by displayName
+    const uniqueMaps = maps.filter((map, index, self) =>
+        index === self.findIndex((m) => m.displayName === map.displayName)
+    );
+
     return (
         <div className="min-h-screen bg-valorant-dark flex flex-col">
             <div className="pt-12 px-8 mb-4">
@@ -28,7 +33,7 @@ const Maps = () => {
                 className="flex-1 overflow-x-auto flex items-center gap-8 px-8 pb-12 custom-scrollbar snap-x snap-mandatory"
                 style={{ scrollBehavior: 'smooth' }}
             >
-                {maps?.map((map) => (
+                {uniqueMaps.map((map) => (
                     <div
                         key={map.uuid}
                         className="relative flex-shrink-0 w-[80vw] md:w-[60vw] lg:w-[40vw] h-[60vh] rounded-sm overflow-hidden group border border-white/10 hover:border-valorant-red transition-colors duration-300 snap-center"

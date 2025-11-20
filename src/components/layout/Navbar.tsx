@@ -13,6 +13,9 @@ const Navbar = () => {
         { name: 'AGENTES', path: '/agents' },
         { name: 'MAPAS', path: '/maps' },
         { name: 'ARMAS', path: '/weapons' },
+        { name: 'SKINS', path: '/skins' },
+        { name: 'SPRAYS', path: '/sprays' },
+        { name: 'CARDS', path: '/playercards' },
     ];
 
     return (
@@ -30,8 +33,8 @@ const Navbar = () => {
 
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-8">
-                            <span className="text-xs font-mono tracking-[0.4em] text-valorant-red uppercase">
-                                © Dev Kauan Felipe
+                            <span className="text-sm font-heading font-bold tracking-[0.2em] text-valorant-red uppercase drop-shadow-sm">
+                                © Developer Kauan Felipe
                             </span>
                             {links.map((link) => (
                                 <Link
@@ -77,8 +80,8 @@ const Navbar = () => {
                     className="md:hidden bg-valorant-dark border-b border-white/10"
                 >
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <div className="px-3 py-2 text-xs font-mono tracking-[0.3em] text-valorant-red uppercase">
-                            © Dev Kauan Felipe
+                        <div className="px-3 py-2 text-sm font-heading font-bold tracking-[0.2em] text-valorant-red uppercase drop-shadow-sm">
+                            © Developer Kauan Felipe
                         </div>
                         {links.map((link) => (
                             <Link

@@ -159,7 +159,7 @@ const Home = () => {
                             className="mt-4 flex items-center justify-center gap-3 text-valorant-red font-mono text-sm tracking-[0.3em]"
                         >
                             <div className="w-2 h-2 bg-valorant-red rounded-full animate-pulse" />
-                            PROTOCOLO DE DADOS TÁTICO
+                            CENTRAL DE DADOS VALORANT
                             <div className="w-2 h-2 bg-valorant-red rounded-full animate-pulse" />
                         </motion.div>
                     </motion.div>
@@ -170,8 +170,8 @@ const Home = () => {
                         transition={{ delay: 0.6, duration: 1 }}
                         className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed"
                     >
-                        Sistema avançado de integração com a <span className="text-white font-bold">Valorant API</span>.
-                        Explore agentes, mapas e arsenal em tempo real com visualização de dados de última geração.
+                        Sistema de integração com a <span className="text-white font-bold">Valorant API</span>.
+                        Explore agentes, mapas, arsenal, skins, sprays e cards em tempo real com visualização de dados.
                     </motion.p>
 
                     <motion.div

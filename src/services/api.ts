@@ -4,6 +4,11 @@ const api = axios.create({
     baseURL: 'https://valorant-api.com/v1',
 });
 
+export interface ValorantApiResponse<T> {
+    status: number;
+    data: T;
+}
+
 export interface Agent {
     uuid: string;
     displayName: string;
@@ -39,7 +44,7 @@ export interface Agent {
     voiceLine: any;
 }
 
-export interface Map {
+export interface ValorantMap {
     uuid: string;
     displayName: string;
     coordinates: string;
@@ -112,32 +117,60 @@ export interface Weapon {
         newImage2: any;
         assetPath: string;
     } | null;
-    skins: {
+    skins: WeaponSkin[];
+}
+
+export interface Spray {
+    uuid: string;
+    displayName: string;
+    category: string | null;
+    themeUuid: string | null;
+    displayIcon: string;
+    fullIcon: string | null;
+    fullTransparentIcon: string | null;
+    animationPng: string | null;
+    animationGif: string | null;
+    assetPath: string;
+    levels: any[];
+    isNullSpray: boolean;
+}
+
+export interface WeaponSkin {
+    uuid: string;
+    displayName: string;
+    themeUuid: string;
+    contentTierUuid: string;
+    displayIcon: string;
+    wallpaper: string | null;
+    assetPath: string;
+    chromas: {
         uuid: string;
         displayName: string;
-        themeUuid: string;
-        contentTierUuid: string;
-        displayIcon: string;
-        wallpaper: string | null;
+        displayIcon: string | null;
+        fullRender: string;
+        swatch: string | null;
+        streamedVideo: string | null;
         assetPath: string;
-        chromas: {
-            uuid: string;
-            displayName: string;
-            displayIcon: string | null;
-            fullRender: string;
-            swatch: string | null;
-            streamedVideo: string | null;
-            assetPath: string;
-        }[];
-        levels: {
-            uuid: string;
-            displayName: string;
-            levelItem: string | null;
-            displayIcon: string | null;
-            streamedVideo: string | null;
-            assetPath: string;
-        }[];
     }[];
+    levels: {
+        uuid: string;
+        displayName: string;
+        levelItem: string | null;
+        displayIcon: string | null;
+        streamedVideo: string | null;
+        assetPath: string;
+    }[];
+}
+
+export interface PlayerCard {
+    uuid: string;
+    displayName: string;
+    isHiddenIfNotOwned: boolean;
+    displayIcon: string;
+    smallArt: string;
+    wideArt: string;
+    largeArt: string;
+    assetPath: string;
 }
 
 export const getAgents = async () => {
@@ -160,7 +193,7 @@ export const getAgentById = async (uuid: string) => {
 };
 
 export const getMaps = async () => {
-    const response = await api.get<{ data: Map[] }>('/maps', {
+    const response = await api.get<{ data: ValorantMap[] }>('/maps', {
         params: {
             language: 'pt-BR'
         }
@@ -173,6 +206,33 @@ export const getWeapons = async () => {
         params: {
             language: 'pt-BR'
         }
+    });
+    return response.data.data;
+};
+
+export const getSprays = async () => {
+    const response = await api.get<ValorantApiResponse<Spray[]>>('/sprays', {
+        params: {
+            language: 'pt-BR',
+        },
+    });
+    return response.data.data;
+};
+
+export const getSkins = async () => {
+    const response = await api.get<ValorantApiResponse<WeaponSkin[]>>('/weapons/skins', {
+        params: {
+            language: 'pt-BR',
+        },
+    });
+    return response.data.data;
+};
+
+export const getPlayerCards = async () => {
+    const response = await api.get<ValorantApiResponse<PlayerCard[]>>('/playercards', {
+        params: {
+            language: 'pt-BR',
+        },
     });
     return response.data.data;
 };

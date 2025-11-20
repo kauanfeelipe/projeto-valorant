@@ -8,6 +8,10 @@ const Agents = lazy(() => import('./pages/Agents'));
 const AgentDetails = lazy(() => import('./pages/AgentDetails'));
 const Maps = lazy(() => import('./pages/Maps'));
 const Weapons = lazy(() => import('./pages/Weapons'));
+const Sprays = lazy(() => import('./pages/Sprays'));
+const Skins = lazy(() => import('./pages/Skins'));
+const PlayerCards = lazy(() => import('./pages/PlayerCards'));
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +38,10 @@ function App() {
               <Route path="/agents/:uuid" element={<AgentDetails />} />
               <Route path="/maps" element={<Maps />} />
               <Route path="/weapons" element={<Weapons />} />
+              <Route path="/sprays" element={<Sprays />} />
+              <Route path="/skins" element={<Skins />} />
+              <Route path="/playercards" element={<PlayerCards />} />
+
             </Routes>
           </Suspense>
         </MainLayout>
