@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useWeapons } from '../hooks/useValorantData';
 import { motion } from 'framer-motion';
-import { Search, Play, ChevronRight } from 'lucide-react';
+import { Search, ChevronRight } from 'lucide-react';
 import clsx from 'clsx';
 
 const Skins = () => {
@@ -121,12 +121,6 @@ const Skins = () => {
                                     />
                                 ) : (
                                     <div className="text-gray-500 text-xs">Sem Imagem</div>
-                                )}
-                                {/* Overlay for video preview hint if available */}
-                                {skin.levels && skin.levels.some(l => l.streamedVideo) && (
-                                    <div className="absolute top-2 right-2 bg-black/50 rounded-full p-1" title="Vídeo disponível">
-                                        <Play size={12} className="text-white" />
-                                    </div>
                                 )}
                             </div>
                             <div className="p-4">

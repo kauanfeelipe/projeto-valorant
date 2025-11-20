@@ -173,6 +173,40 @@ export interface PlayerCard {
     assetPath: string;
 }
 
+export interface CompetitiveTier {
+    tier: number;
+    tierName: string;
+    division: string;
+    divisionName: string;
+    color: string;
+    backgroundColor: string;
+    smallIcon: string | null;
+    largeIcon: string | null;
+    rankTriangleDownIcon: string | null;
+    rankTriangleUpIcon: string | null;
+}
+
+export interface CompetitiveSeasonData {
+    uuid: string;
+    assetObjectName: string;
+    tiers: CompetitiveTier[];
+    assetPath: string;
+}
+
+export interface Bundle {
+    uuid: string;
+    displayName: string;
+    displayNameSubText: string | null;
+    description: string;
+    extraDescription: string | null;
+    promoDescription: string | null;
+    useAdditionalContext: boolean;
+    displayIcon: string;
+    displayIcon2: string;
+    verticalPromoImage: string | null;
+    assetPath: string;
+}
+
 export const getAgents = async () => {
     const response = await api.get<{ data: Agent[] }>('/agents', {
         params: {
@@ -230,6 +264,24 @@ export const getSkins = async () => {
 
 export const getPlayerCards = async () => {
     const response = await api.get<ValorantApiResponse<PlayerCard[]>>('/playercards', {
+        params: {
+            language: 'pt-BR',
+        },
+    });
+    return response.data.data;
+};
+
+export const getCompetitiveTiers = async (): Promise<CompetitiveSeasonData[]> => {
+    const response = await api.get<ValorantApiResponse<CompetitiveSeasonData[]>>('/competitivetiers', {
+        params: {
+            language: 'pt-BR',
+        },
+    });
+    return response.data.data;
+};
+
+export const getBundles = async (): Promise<Bundle[]> => {
+    const response = await api.get<ValorantApiResponse<Bundle[]>>('/bundles', {
         params: {
             language: 'pt-BR',
         },
