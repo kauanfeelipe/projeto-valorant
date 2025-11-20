@@ -1,73 +1,117 @@
-# React + TypeScript + Vite
+# 🎮 Valorant Data Hub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma aplicação web moderna desenvolvida em React para visualização de dados do jogo Valorant, consumindo a API oficial do Valorant.
 
-Currently, two official plugins are available:
+## 📋 Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este projeto foi criado com o objetivo de fornecer uma interface intuitiva e visualmente atraente para explorar informações sobre o universo de Valorant. A aplicação consome dados em tempo real da [Valorant API](https://valorant-api.com) e apresenta de forma organizada e interativa.
 
-## React Compiler
+### ✨ Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Agentes**: Visualize todos os agentes do jogo com suas habilidades, funções e informações detalhadas
+- **Mapas**: Explore os mapas disponíveis com suas coordenadas e minimapas
+- **Arsenal**: Consulte estatísticas completas de todas as armas do jogo
+- **Skins**: Navegue por todas as skins de armas, organizadas por categoria
+- **Sprays**: Descubra a coleção completa de sprays, categorizados por tipo (VCT/Esports, Agentes, Animados)
+- **Player Cards**: Visualize todos os cards de jogador disponíveis no jogo
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 19** - Biblioteca JavaScript para construção de interfaces
+- **TypeScript** - Superset JavaScript com tipagem estática
+- **Vite** - Build tool e dev server
+- **Tailwind CSS** - Framework CSS utilitário
+- **Framer Motion** - Biblioteca para animações
+- **React Query** - Gerenciamento de estado e cache de dados
+- **Axios** - Cliente HTTP para requisições à API
+- **React Router** - Navegação entre páginas
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🔌 Consumo da API
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+A aplicação utiliza a [Valorant API](https://valorant-api.com) para obter todos os dados do jogo. A API é gratuita e não requer autenticação.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Endpoints Principais
+
+```typescript
+// Base URL
+const API_BASE = 'https://valorant-api.com/v1'
+
+// Exemplos de endpoints utilizados:
+GET /agents          // Lista de agentes
+GET /maps            // Lista de mapas
+GET /weapons         // Lista de armas
+GET /sprays          // Lista de sprays
+GET /playercards     // Lista de player cards
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Estrutura de Requisição
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Todas as requisições incluem o parâmetro de idioma para obter dados em português:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```typescript
+const response = await axios.get(`${API_BASE}/agents`, {
+  params: {
+    language: 'pt-BR',
+    isPlayableCharacter: true
+  }
+});
 ```
+
+## 📦 Instalação e Execução
+
+### Pré-requisitos
+
+- Node.js (versão 16 ou superior)
+- npm ou yarn
+
+### Passos para Instalação
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/kauanfeelipe/projeto-valorant.git
+cd projeto-valorant
+```
+
+2. Instale as dependências:
+```bash
+npm install
+```
+
+3. Execute o projeto em modo de desenvolvimento:
+```bash
+npm run dev
+```
+
+4. Acesse a aplicação em `http://localhost:5173`
+
+### Build para Produção
+
+```bash
+npm run build
+```
+
+### Deploy no GitHub Pages
+
+```bash
+npm run deploy
+```
+
+## 🎨 Características de Design
+
+- Interface moderna com tema dark inspirado no visual do Valorant
+- Animações suaves e interativas usando Framer Motion
+- Efeitos 3D nos cards de jogador (tilt holográfico)
+- Design responsivo para todos os dispositivos
+- Sistema de categorização inteligente para organização de conteúdo
+
+## 📄 Licença
+
+Este projeto é de código aberto e está disponível para uso educacional e pessoal.
+
+## 👨‍💻 Desenvolvedor
+
+Desenvolvido por **Kauan Felipe**
+
+---
+
+**Nota**: Este projeto não é afiliado ou endossado pela Riot Games. Valorant e todos os materiais relacionados são propriedade da Riot Games.
