@@ -21,7 +21,7 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router basename="/projeto-valorant">
+      <Router>
         <MainLayout>
           <Suspense fallback={
             <div className="flex items-center justify-center min-h-screen bg-valorant-dark">
