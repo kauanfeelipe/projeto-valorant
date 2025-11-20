@@ -16,6 +16,8 @@ const Navbar = () => {
         { name: 'SKINS', path: '/skins' },
         { name: 'SPRAYS', path: '/sprays' },
         { name: 'CARDS', path: '/playercards' },
+        { name: 'RANKS', path: '/ranks' },
+        { name: 'BUNDLES', path: '/bundles' },
     ];
 
     return (
@@ -33,9 +35,14 @@ const Navbar = () => {
 
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-8">
-                            <span className="text-sm font-heading font-bold tracking-[0.2em] text-valorant-red uppercase drop-shadow-sm">
-                                © Developer Kauan Felipe
-                            </span>
+                            <a
+                                href="https://kauanfeelipe.github.io/web-portifolio/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-sm font-heading font-bold tracking-[0.2em] text-valorant-red uppercase drop-shadow-sm hover:underline underline-offset-4 transition-all duration-200"
+                            >
+                                © Dev kauanF
+                            </a>
                             {links.map((link) => (
                                 <Link
                                     key={link.name}
@@ -80,9 +87,14 @@ const Navbar = () => {
                     className="md:hidden bg-valorant-dark border-b border-white/10"
                 >
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <div className="px-3 py-2 text-sm font-heading font-bold tracking-[0.2em] text-valorant-red uppercase drop-shadow-sm">
-                            © Developer Kauan Felipe
-                        </div>
+                        <a
+                            href="https://kauanfeelipe.github.io/web-portifolio/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-3 py-2 text-sm font-heading font-bold tracking-[0.2em] text-valorant-red uppercase drop-shadow-sm hover:underline underline-offset-4 transition-all duration-200 block mb-2"
+                        >
+                            © Dev kauanF
+                        </a>
                         {links.map((link) => (
                             <Link
                                 key={link.name}

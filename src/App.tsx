@@ -11,6 +11,8 @@ const Weapons = lazy(() => import('./pages/Weapons'));
 const Sprays = lazy(() => import('./pages/Sprays'));
 const Skins = lazy(() => import('./pages/Skins'));
 const PlayerCards = lazy(() => import('./pages/PlayerCards'));
+const Ranks = lazy(() => import('./pages/Ranks'));
+const Bundles = lazy(() => import('./pages/Bundles'));
 
 
 const queryClient = new QueryClient({
@@ -41,6 +43,8 @@ function App() {
               <Route path="/sprays" element={<Sprays />} />
               <Route path="/skins" element={<Skins />} />
               <Route path="/playercards" element={<PlayerCards />} />
+              <Route path="/ranks" element={<Ranks />} />
+              <Route path="/bundles" element={<Bundles />} />
 
             </Routes>
           </Suspense>

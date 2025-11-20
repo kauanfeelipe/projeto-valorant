@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAgentById, getAgents, getMaps, getWeapons, getSprays, getSkins, getPlayerCards } from '../services/api';
+import { getAgentById, getAgents, getMaps, getWeapons, getSprays, getSkins, getPlayerCards, getCompetitiveTiers, getBundles } from '../services/api';
 import { valorantKeys } from '../services/queryKeys';
 
 export const useAgents = () => useQuery({
@@ -27,7 +27,7 @@ export const useSprays = () => {
     return useQuery({
         queryKey: ['sprays'],
         queryFn: getSprays,
-        staleTime: 1000 * 60 * 60 * 24, // 24 hours
+        staleTime: 1000 * 60 * 60 * 24,
     });
 };
 
@@ -35,7 +35,7 @@ export const useSkins = () => {
     return useQuery({
         queryKey: ['skins'],
         queryFn: getSkins,
-        staleTime: 1000 * 60 * 60 * 24, // 24 hours
+        staleTime: 1000 * 60 * 60 * 24,
     });
 };
 
@@ -43,6 +43,22 @@ export const usePlayerCards = () => {
     return useQuery({
         queryKey: ['playercards'],
         queryFn: getPlayerCards,
-        staleTime: 1000 * 60 * 60 * 24, // 24 hours
+        staleTime: 1000 * 60 * 60 * 24,
+    });
+};
+
+export const useCompetitiveTiers = () => {
+    return useQuery({
+        queryKey: ['competitivetiers'],
+        queryFn: getCompetitiveTiers,
+        staleTime: 1000 * 60 * 60 * 24,
+    });
+};
+
+export const useBundles = () => {
+    return useQuery({
+        queryKey: ['bundles'],
+        queryFn: getBundles,
+        staleTime: 1000 * 60 * 60 * 24,
     });
 };
