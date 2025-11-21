@@ -1,7 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
 import { Suspense, lazy } from 'react';
+import ErrorBoundary from './components/ui/ErrorBoundary';
 
 const Home = lazy(() => import('./pages/Home'));
 const Agents = lazy(() => import('./pages/Agents'));
@@ -27,27 +28,29 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router basename={import.meta.env.BASE_URL}>
+      <Router>
         <MainLayout>
-          <Suspense fallback={
-            <div className="flex items-center justify-center min-h-screen bg-valorant-dark">
-              <div className="w-16 h-16 border-4 border-valorant-red border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          }>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/agents" element={<Agents />} />
-              <Route path="/agents/:uuid" element={<AgentDetails />} />
-              <Route path="/maps" element={<Maps />} />
-              <Route path="/weapons" element={<Weapons />} />
-              <Route path="/sprays" element={<Sprays />} />
-              <Route path="/skins" element={<Skins />} />
-              <Route path="/playercards" element={<PlayerCards />} />
-              <Route path="/ranks" element={<Ranks />} />
-              <Route path="/bundles" element={<Bundles />} />
-
-            </Routes>
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={
+              <div className="flex items-center justify-center min-h-screen bg-valorant-dark">
+                <div className="w-16 h-16 border-4 border-valorant-red border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            }>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/agents" element={<Agents />} />
+                <Route path="/agents/:uuid" element={<AgentDetails />} />
+                <Route path="/maps" element={<Maps />} />
+                <Route path="/weapons" element={<Weapons />} />
+                <Route path="/sprays" element={<Sprays />} />
+                <Route path="/skins" element={<Skins />} />
+                <Route path="/playercards" element={<PlayerCards />} />
+                <Route path="/ranks" element={<Ranks />} />
+                <Route path="/bundles" element={<Bundles />} />
+                <Route path="*" element={<Home />} />
+              </Routes>
+            </Suspense>
+          </ErrorBoundary>
         </MainLayout>
       </Router>
     </QueryClientProvider>
