@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { Crosshair, Zap, Target, BarChart3 } from 'lucide-react';
 import { type Weapon } from '../services/api';
 import LoadingState from '../components/ui/LoadingState';
@@ -19,6 +19,15 @@ const Weapons = () => {
     const { data: weapons, isLoading, error } = useWeapons();
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [selectedWeapon, setSelectedWeapon] = useState<Weapon | null>(null);
+    const detailsRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (selectedWeapon && detailsRef.current && window.innerWidth < 1024) {
+            setTimeout(() => {
+                detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+    }, [selectedWeapon]);
 
     const categories = useMemo(() => {
         if (!weapons) {
@@ -71,8 +80,8 @@ const Weapons = () => {
                                 setSelectedWeapon(null);
                             }}
                             className={`px-6 py-2 border skew-x-[-20deg] transition-all duration-300 ${selectedCategory === category
-                                    ? 'bg-valorant-red border-valorant-red text-white shadow-[0_0_15px_rgba(255,70,85,0.5)]'
-                                    : 'bg-transparent border-gray-700 text-gray-500 hover:border-white hover:text-white'
+                                ? 'bg-valorant-red border-valorant-red text-white shadow-[0_0_15px_rgba(255,70,85,0.5)]'
+                                : 'bg-transparent border-gray-700 text-gray-500 hover:border-white hover:text-white'
                                 }`}
                         >
                             <span className="block skew-x-[20deg] font-heading tracking-wider text-lg uppercase">
@@ -83,15 +92,15 @@ const Weapons = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div className="lg:col-span-1 space-y-4 h-[600px] overflow-y-auto custom-scrollbar pr-2">
+                    <div className="lg:col-span-1 space-y-4 h-[400px] lg:h-[600px] overflow-y-auto custom-scrollbar pr-2">
                         {filteredWeapons?.map((weapon) => (
                             <motion.div
                                 key={weapon.uuid}
                                 layoutId={`weapon-card-${weapon.uuid}`}
                                 onClick={() => setSelectedWeapon(weapon)}
                                 className={`group relative p-4 border cursor-pointer transition-all duration-300 overflow-hidden ${selectedWeapon?.uuid === weapon.uuid
-                                        ? 'bg-white/10 border-valorant-red'
-                                        : 'bg-white/5 border-white/10 hover:border-white/30'
+                                    ? 'bg-white/10 border-valorant-red'
+                                    : 'bg-white/5 border-white/10 hover:border-white/30'
                                     }`}
                             >
                                 <div className="absolute top-0 right-0 p-1 opacity-20 group-hover:opacity-100 transition-opacity">
@@ -105,13 +114,15 @@ const Weapons = () => {
                                 <img
                                     src={weapon.displayIcon}
                                     alt={weapon.displayName}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-full h-24 object-contain mt-2 opacity-80 group-hover:opacity-100 transition-opacity"
                                 />
                             </motion.div>
                         ))}
                     </div>
 
-                    <div className="lg:col-span-2 relative">
+                    <div className="lg:col-span-2 relative" ref={detailsRef}>
                         <AnimatePresence mode="wait">
                             {selectedWeapon ? (
                                 <motion.div
@@ -128,7 +139,7 @@ const Weapons = () => {
                                     <div className="relative z-10 flex flex-col h-full">
                                         <div className="flex justify-between items-start mb-8">
                                             <div>
-                                                <h2 className="text-6xl font-heading font-bold text-white uppercase mb-2">{selectedWeapon.displayName}</h2>
+                                                <h2 className="text-4xl md:text-6xl font-heading font-bold text-white uppercase mb-2">{selectedWeapon.displayName}</h2>
                                                 <div className="flex items-center gap-2 text-valorant-red font-mono text-sm">
                                                     <Zap size={16} />
                                                     <span>DADOS DA ARMA // {selectedWeapon.category.split('::').pop()?.toUpperCase()}</span>
@@ -145,6 +156,7 @@ const Weapons = () => {
                                             <img
                                                 src={selectedWeapon.displayIcon}
                                                 alt={selectedWeapon.displayName}
+                                                decoding="async"
                                                 className="w-full max-w-2xl object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.2)] relative z-10"
                                             />
                                         </div>
@@ -162,7 +174,7 @@ const Weapons = () => {
                                                         label="CADÊNCIA"
                                                         value={selectedWeapon.weaponStats.fireRate}
                                                         max={16}
-                                                        suffix=" tiros/seg"
+                                                        suffix=" /S"
                                                     />
                                                     <StatBox
                                                         label="MUNIÇÃO"
@@ -180,9 +192,9 @@ const Weapons = () => {
                                     </div>
                                 </motion.div>
                             ) : (
-                                <div className="h-full flex flex-col items-center justify-center border border-white/10 border-dashed bg-white/5 rounded-sm text-gray-500">
+                                <div className="h-full flex flex-col items-center justify-center border border-white/10 border-dashed bg-white/5 rounded-sm text-gray-500 min-h-[300px]">
                                     <BarChart3 size={64} className="mb-4 opacity-50" />
-                                    <p className="font-mono tracking-widest">SELECIONE UM ITEM PARA ANÁLISE</p>
+                                    <p className="font-mono tracking-widest text-center">SELECIONE UM ITEM PARA ANÁLISE</p>
                                 </div>
                             )}
                         </AnimatePresence>
@@ -197,10 +209,10 @@ const StatBox = ({ label, value, max, suffix }: { label: string, value: number, 
     const percentage = Math.min((value / max) * 100, 100);
 
     return (
-        <div className="bg-black/40 p-4 border border-white/5 relative group hover:border-valorant-red/50 transition-colors">
-            <div className="text-gray-400 text-xs font-mono mb-2 tracking-wider uppercase">{label}</div>
-            <div className="text-2xl font-heading font-bold text-white mb-2">
-                {value}{suffix}
+        <div className="bg-black/40 p-2 md:p-4 border border-white/5 relative group hover:border-valorant-red/50 transition-colors">
+            <div className="text-gray-400 text-[10px] md:text-xs font-mono mb-1 md:mb-2 tracking-wider uppercase truncate" title={label}>{label}</div>
+            <div className="text-lg md:text-2xl font-heading font-bold text-white mb-2 truncate">
+                {value}<span className="text-sm md:text-lg text-gray-500">{suffix}</span>
             </div>
             <div className="h-1 w-full bg-gray-800 rounded-full overflow-hidden">
                 <motion.div

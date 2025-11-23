@@ -284,6 +284,12 @@ const Home = () => {
                                             <span className="text-purple-400">return</span> response.data.data;
                                         </p>
                                     </div>
+                                    <div className="flex items-start gap-4">
+                                        <span className="text-gray-600 select-none">09</span>
+                                        <p>
+                                            <span className="text-purple-400">{'}'}</span>;
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div className="mt-6 pt-6 border-t border-white/10">

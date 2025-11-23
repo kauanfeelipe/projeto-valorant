@@ -9,7 +9,7 @@ const Bundles = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('Todos');
 
-    const categories = ['Todos', 'VCT / Esports', 'Raros/Limitados', 'Padrão'];
+    const categories = ['Todos', 'VCT / Esports', 'Padrão'];
 
     const categorizedBundles = useMemo(() => {
         if (!bundles) return [];
@@ -34,17 +34,10 @@ const Bundles = () => {
                     name.includes('vct') || name.includes('lock in');
             }
 
-            if (selectedCategory === 'Raros/Limitados') {
-                return name.includes('exclusive') || name.includes('limited') ||
-                    name.includes('premium') || name.includes('edition');
-            }
-
             if (selectedCategory === 'Padrão') {
                 const isVCT = name.includes('champions') || name.includes('masters') ||
                     name.includes('vct') || name.includes('lock in');
-                const isRare = name.includes('exclusive') || name.includes('limited') ||
-                    name.includes('premium') || name.includes('edition');
-                return !isVCT && !isRare;
+                return !isVCT;
             }
 
             return true;
@@ -132,7 +125,7 @@ const Bundles = () => {
                             <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
                                 {bundle.verticalPromoImage || bundle.displayIcon2 ? (
                                     <img
-                                        src={bundle.verticalPromoImage || bundle.displayIcon2}
+                                        src={bundle.verticalPromoImage || bundle.displayIcon2 || undefined}
                                         alt={bundle.displayName}
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         loading="lazy"

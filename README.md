@@ -1,117 +1,63 @@
 # 🎮 Valorant Data Hub
 
-Uma aplicação web moderna desenvolvida em React para visualização de dados do jogo Valorant, consumindo a API oficial do Valorant.
+> Uma interface moderna e imersiva para explorar o universo de Valorant.
+
 
 ## 📋 Sobre o Projeto
 
-Este projeto foi criado com o objetivo de fornecer uma interface intuitiva e visualmente atraente para explorar informações sobre o universo de Valorant. A aplicação consome dados em tempo real da [Valorant API](https://valorant-api.com) e apresenta de forma organizada e interativa.
+Este projeto é uma aplicação web desenvolvida para consumir a **Valorant API** e apresentar dados do jogo de forma visualmente impactante. O objetivo principal foi praticar o consumo de APIs REST, implementação de design responsivo e otimização de performance em React.
 
-### ✨ Funcionalidades
+A aplicação oferece uma experiência de navegação fluida, permitindo aos usuários explorar agentes, armas, mapas e cosméticos com detalhes ricos e animações suaves.
 
-- **Agentes**: Visualize todos os agentes do jogo com suas habilidades, funções e informações detalhadas
-- **Mapas**: Explore os mapas disponíveis com suas coordenadas e minimapas
-- **Arsenal**: Consulte estatísticas completas de todas as armas do jogo
-- **Skins**: Navegue por todas as skins de armas, organizadas por categoria
-- **Sprays**: Descubra a coleção completa de sprays, categorizados por tipo (VCT/Esports, Agentes, Animados)
-- **Player Cards**: Visualize todos os cards de jogador disponíveis no jogo
+## ✨ Funcionalidades
 
-## 🚀 Tecnologias Utilizadas
+- **Agentes:** Perfis completos com habilidades, funções e lore.
+- **Arsenal:** Estatísticas detalhadas de dano, cadência e skins de todas as armas.
+- **Mapas:** Visualização de mapas com coordenadas e minimapas.
+- **Cosméticos:** Galeria completa de Sprays e Cards de Jogador.
+- **Bundles:** Visualização de pacotes de skins (com filtro de categorias).
 
-- **React 19** - Biblioteca JavaScript para construção de interfaces
-- **TypeScript** - Superset JavaScript com tipagem estática
-- **Vite** - Build tool e dev server
-- **Tailwind CSS** - Framework CSS utilitário
-- **Framer Motion** - Biblioteca para animações
-- **React Query** - Gerenciamento de estado e cache de dados
-- **Axios** - Cliente HTTP para requisições à API
-- **React Router** - Navegação entre páginas
+## 🚀 Tecnologias
 
-## 🔌 Consumo da API
+- **React 19** & **Vite** (Performance e DX)
+- **TypeScript** (Segurança de tipos)
+- **Tailwind CSS** (Estilização moderna e responsiva)
+- **Framer Motion** (Animações complexas e transições de página)
+- **React Query** (Gerenciamento de estado assíncrono e cache)
+- **Axios** (Requisições HTTP)
 
-A aplicação utiliza a [Valorant API](https://valorant-api.com) para obter todos os dados do jogo. A API é gratuita e não requer autenticação.
+## 📦 Como Executar
 
-### Endpoints Principais
+1. **Clone o repositório**
+   ```bash
+   git clone https://github.com/kauanfeelipe/projeto-valorant.git
+   cd projeto-valorant
+   ```
 
-```typescript
-// Base URL
-const API_BASE = 'https://valorant-api.com/v1'
+2. **Instale as dependências**
+   ```bash
+   npm install
+   ```
 
-// Exemplos de endpoints utilizados:
-GET /agents          // Lista de agentes
-GET /maps            // Lista de mapas
-GET /weapons         // Lista de armas
-GET /sprays          // Lista de sprays
-GET /playercards     // Lista de player cards
-```
+3. **Inicie o servidor de desenvolvimento**
+   ```bash
+   npm run dev
+   ```
 
-### Estrutura de Requisição
+4. **Acesse**
+   Abra `http://localhost:5173` no seu navegador.
 
-Todas as requisições incluem o parâmetro de idioma para obter dados em português:
+## 🎨 Design & UI/UX
 
-```typescript
-const response = await axios.get(`${API_BASE}/agents`, {
-  params: {
-    language: 'pt-BR',
-    isPlayableCharacter: true
-  }
-});
-```
+O projeto foca em uma estética "Gamer Premium", utilizando:
+- Paleta de cores oficial do Valorant (Dark Blue, Red, White).
+- Efeitos de vidro (Glassmorphism).
+- Cards com efeito holográfico (Tilt).
+- Transições de página suaves.
 
-## 📦 Instalação e Execução
-
-### Pré-requisitos
-
-- Node.js (versão 16 ou superior)
-- npm ou yarn
-
-### Passos para Instalação
-
-1. Clone o repositório:
-```bash
-git clone https://github.com/kauanfeelipe/projeto-valorant.git
-cd projeto-valorant
-```
-
-2. Instale as dependências:
-```bash
-npm install
-```
-
-3. Execute o projeto em modo de desenvolvimento:
-```bash
-npm run dev
-```
-
-4. Acesse a aplicação em `http://localhost:5173`
-
-### Build para Produção
-
-```bash
-npm run build
-```
-
-### Deploy no GitHub Pages
-
-```bash
-npm run deploy
-```
-
-## 🎨 Características de Design
-
-- Interface moderna com tema dark inspirado no visual do Valorant
-- Animações suaves e interativas usando Framer Motion
-- Efeitos 3D nos cards de jogador (tilt holográfico)
-- Design responsivo para todos os dispositivos
-- Sistema de categorização inteligente para organização de conteúdo
-
-## 📄 Licença
-
-Este projeto é de código aberto e está disponível para uso educacional e pessoal.
-
-## 👨‍💻 Desenvolvedor
+## 👨‍💻 Autor
 
 Desenvolvido por **Kauan Felipe**
 
 ---
-
-**Nota**: Este projeto não é afiliado ou endossado pela Riot Games. Valorant e todos os materiais relacionados são propriedade da Riot Games.
+*Este projeto não é afiliado à Riot Games.*

@@ -3,6 +3,8 @@ import { useSprays, useAgents } from '../hooks/useValorantData';
 import { motion } from 'framer-motion';
 import { Search, ChevronRight } from 'lucide-react';
 import clsx from 'clsx';
+import LoadingState from '../components/ui/LoadingState';
+import ErrorState from '../components/ui/ErrorState';
 
 const Sprays = () => {
     const { data: sprays, isLoading: isLoadingSprays, error: errorSprays } = useSprays();
@@ -59,19 +61,11 @@ const Sprays = () => {
     }, [sprays, agents, selectedCategory, searchTerm]);
 
     if (isLoadingSprays || isLoadingAgents) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-valorant-red"></div>
-            </div>
-        );
+        return <LoadingState message="CARREGANDO SPRAYS..." />;
     }
 
     if (errorSprays) {
-        return (
-            <div className="flex items-center justify-center min-h-screen text-valorant-red">
-                Erro ao carregar sprays.
-            </div>
-        );
+        return <ErrorState message="Erro ao carregar sprays. Tente novamente mais tarde." />;
     }
 
     return (
@@ -145,6 +139,7 @@ const Sprays = () => {
                                         alt={spray.displayName}
                                         className="object-contain w-full h-full group-hover:scale-110 transition-transform duration-300 drop-shadow-lg"
                                         loading="lazy"
+                                        decoding="async"
                                     />
                                 ) : (
                                     <div className="w-full h-full bg-gray-800 rounded-lg flex items-center justify-center text-gray-500 text-xs">

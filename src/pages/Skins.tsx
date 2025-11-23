@@ -38,18 +38,16 @@ const Skins = () => {
     const filteredSkins = selectedWeapon?.skins.filter((skin) =>
         skin.displayName.toLowerCase().includes(searchTerm.toLowerCase()) &&
         skin.displayIcon &&
-        skin.contentTierUuid // Filter out standard skins if desired, or keep them
+        skin.contentTierUuid
     );
 
-    // Sort weapons alphabetically
     const sortedWeapons = weapons?.sort((a, b) => a.displayName.localeCompare(b.displayName));
 
     return (
         <div className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
 
-            {/* Sidebar - Weapon Selector */}
             <div className="w-full md:w-64 flex-shrink-0">
-                <div className="bg-gray-900/80 backdrop-blur-md border border-white/10 rounded-xl p-4 sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto custom-scrollbar">
+                <div className="bg-gray-900/80 backdrop-blur-md border border-white/10 rounded-xl p-4 sticky top-24 max-h-48 md:max-h-[calc(100vh-8rem)] overflow-y-auto custom-scrollbar">
                     <h2 className="text-xl font-heading font-bold text-white mb-4 uppercase tracking-wider border-b border-white/10 pb-2">
                         Armas
                     </h2>
@@ -59,7 +57,7 @@ const Skins = () => {
                                 key={weapon.uuid}
                                 onClick={() => {
                                     setSelectedWeaponUuid(weapon.uuid);
-                                    setSearchTerm(''); // Reset search when changing weapon
+                                    setSearchTerm('');
                                 }}
                                 className={clsx(
                                     "w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center justify-between group",
@@ -78,7 +76,6 @@ const Skins = () => {
                 </div>
             </div>
 
-            {/* Main Content - Skins Grid */}
             <div className="flex-1">
                 <div className="mb-8">
                     <h1 className="text-4xl font-heading font-bold text-white mb-2 uppercase tracking-wider">
@@ -118,6 +115,7 @@ const Skins = () => {
                                         alt={skin.displayName}
                                         className="object-contain w-full h-full group-hover:scale-110 transition-transform duration-300"
                                         loading="lazy"
+                                        decoding="async"
                                     />
                                 ) : (
                                     <div className="text-gray-500 text-xs">Sem Imagem</div>

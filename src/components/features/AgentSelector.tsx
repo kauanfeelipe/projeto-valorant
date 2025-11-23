@@ -63,6 +63,8 @@ const AgentSelector = ({ agents }: AgentSelectorProps) => {
                                 <img
                                     src={agent.displayIconSmall}
                                     alt={agent.displayName}
+                                    loading="lazy"
+                                    decoding="async"
                                     className={`w-8 h-8 md:w-10 md:h-10 rounded-sm transition-transform ${selectedAgent.uuid === agent.uuid ? 'scale-110' : 'grayscale group-hover:grayscale-0'}`}
                                 />
                                 <span className={`font-heading tracking-wider text-xs md:text-lg hidden md:block ${selectedAgent.uuid === agent.uuid ? 'text-white' : 'text-gray-400 group-hover:text-white'}`}>
@@ -91,8 +93,9 @@ const AgentSelector = ({ agents }: AgentSelectorProps) => {
                         </div>
 
                         <img
-                            src={selectedAgentPortrait}
+                            src={selectedAgentPortrait || ''}
                             alt={selectedAgent.displayName}
+                            decoding="async"
                             className="relative z-20 h-[70%] md:h-[90%] object-contain drop-shadow-2xl"
                         />
 
@@ -104,7 +107,13 @@ const AgentSelector = ({ agents }: AgentSelectorProps) => {
                                 className="bg-black/60 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none p-4 md:p-0 rounded-lg md:rounded-none"
                             >
                                 <div className="flex items-center gap-2 mb-2">
-                                    <img src={selectedAgent.role?.displayIcon} alt={selectedAgent.role?.displayName} className="w-5 h-5 md:w-6 md:h-6" />
+                                    <img
+                                        src={selectedAgent.role?.displayIcon}
+                                        alt={selectedAgent.role?.displayName}
+                                        loading="lazy"
+                                        decoding="async"
+                                        className="w-5 h-5 md:w-6 md:h-6"
+                                    />
                                     <span className="text-valorant-red font-mono text-xs md:text-sm tracking-widest uppercase">
                                         {selectedAgent.role?.displayName}
                                     </span>

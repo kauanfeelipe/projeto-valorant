@@ -1,6 +1,7 @@
 import LoadingState from '../components/ui/LoadingState';
 import ErrorState from '../components/ui/ErrorState';
 import { useMaps } from '../hooks/useValorantData';
+import { AlertTriangle } from 'lucide-react';
 
 const Maps = () => {
     const { data: maps, isLoading, error } = useMaps();
@@ -17,7 +18,6 @@ const Maps = () => {
         return <ErrorState message="Nenhum mapa disponível." />;
     }
 
-    // Filter duplicate maps by displayName
     const uniqueMaps = maps.filter((map, index, self) =>
         index === self.findIndex((m) => m.displayName === map.displayName)
     );
@@ -26,7 +26,11 @@ const Maps = () => {
         <div className="min-h-screen bg-valorant-dark flex flex-col">
             <div className="pt-12 px-8 mb-4">
                 <h1 className="text-5xl md:text-7xl font-heading font-bold text-white uppercase">MAPAS</h1>
-                <p className="text-gray-400 font-mono tracking-widest">ROLE HORIZONTALMENTE PARA EXPLORAR</p>
+                <p className="text-gray-400 font-mono tracking-widest mb-2">ROLE HORIZONTALMENTE PARA EXPLORAR</p>
+                <div className="flex items-center gap-2 text-yellow-500 font-mono text-sm tracking-wider">
+                    <AlertTriangle size={16} />
+                    <span>EM DESENVOLVIMENTO</span>
+                </div>
             </div>
 
             <div

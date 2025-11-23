@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useMemo } from 'react';
 import ErrorBoundary from './components/ui/ErrorBoundary';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -15,22 +15,27 @@ const PlayerCards = lazy(() => import('./pages/PlayerCards'));
 const Ranks = lazy(() => import('./pages/Ranks'));
 const Bundles = lazy(() => import('./pages/Bundles'));
 
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 60,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-
 function App() {
+  // Criar QueryClient uma única vez usando useMemo
+  const queryClient = useMemo(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 1000 * 60 * 60,
+            refetchOnWindowFocus: false,
+            retry: 1, // Tentar apenas 1 vez em caso de erro
+          },
+        },
+      }),
+    []
+  );
+
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
         <MainLayout>
-          <ErrorBoundary>
+          <ErrorBoundary queryClient={queryClient}>
             <Suspense fallback={
               <div className="flex items-center justify-center min-h-screen bg-valorant-dark">
                 <div className="w-16 h-16 border-4 border-valorant-red border-t-transparent rounded-full animate-spin"></div>

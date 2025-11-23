@@ -4,8 +4,11 @@ import { usePlayerCards, useAgents } from '../hooks/useValorantData';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Search, ChevronRight } from 'lucide-react';
 import clsx from 'clsx';
+import LoadingState from '../components/ui/LoadingState';
+import ErrorState from '../components/ui/ErrorState';
+import type { PlayerCard } from '../services/api';
 
-const TiltCard = ({ card }: { card: any }) => {
+const TiltCard = ({ card }: { card: PlayerCard }) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const x = useMotionValue(0);
@@ -57,10 +60,11 @@ const TiltCard = ({ card }: { card: any }) => {
                 className="absolute inset-0"
             >
                 <img
-                    src={card.largeArt}
+                    src={card.largeArt || ''}
                     alt={card.displayName}
                     className="w-full h-full object-cover"
                     loading="lazy"
+                    decoding="async"
                 />
                 {/* Shine effect */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ mixBlendMode: 'overlay' }} />
@@ -126,19 +130,11 @@ const PlayerCards = () => {
     }, [cards, agents, selectedCategory, searchTerm]);
 
     if (isLoadingCards || isLoadingAgents) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-valorant-red"></div>
-            </div>
-        );
+        return <LoadingState message="CARREGANDO PLAYER CARDS..." />;
     }
 
     if (errorCards) {
-        return (
-            <div className="flex items-center justify-center min-h-screen text-valorant-red">
-                Erro ao carregar cards.
-            </div>
-        );
+        return <ErrorState message="Erro ao carregar player cards. Tente novamente mais tarde." />;
     }
 
     return (

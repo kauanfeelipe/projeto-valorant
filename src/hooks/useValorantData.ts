@@ -9,7 +9,12 @@ export const useAgents = () => useQuery({
 
 export const useAgent = (uuid?: string) => useQuery({
     queryKey: valorantKeys.agents.detail(uuid ?? 'unknown'),
-    queryFn: () => getAgentById(uuid!),
+    queryFn: () => {
+        if (!uuid) {
+            throw new Error('UUID is required to fetch agent');
+        }
+        return getAgentById(uuid);
+    },
     enabled: Boolean(uuid),
 });
 
@@ -25,7 +30,7 @@ export const useWeapons = () => useQuery({
 
 export const useSprays = () => {
     return useQuery({
-        queryKey: ['sprays'],
+        queryKey: valorantKeys.sprays.list(),
         queryFn: getSprays,
         staleTime: 1000 * 60 * 60 * 24,
     });
@@ -33,7 +38,7 @@ export const useSprays = () => {
 
 export const useSkins = () => {
     return useQuery({
-        queryKey: ['skins'],
+        queryKey: valorantKeys.skins.list(),
         queryFn: getSkins,
         staleTime: 1000 * 60 * 60 * 24,
     });
@@ -41,7 +46,7 @@ export const useSkins = () => {
 
 export const usePlayerCards = () => {
     return useQuery({
-        queryKey: ['playercards'],
+        queryKey: valorantKeys.playercards.list(),
         queryFn: getPlayerCards,
         staleTime: 1000 * 60 * 60 * 24,
     });
@@ -49,7 +54,7 @@ export const usePlayerCards = () => {
 
 export const useCompetitiveTiers = () => {
     return useQuery({
-        queryKey: ['competitivetiers'],
+        queryKey: valorantKeys.competitivetiers.list(),
         queryFn: getCompetitiveTiers,
         staleTime: 1000 * 60 * 60 * 24,
     });
@@ -57,7 +62,7 @@ export const useCompetitiveTiers = () => {
 
 export const useBundles = () => {
     return useQuery({
-        queryKey: ['bundles'],
+        queryKey: valorantKeys.bundles.list(),
         queryFn: getBundles,
         staleTime: 1000 * 60 * 60 * 24,
     });
